@@ -1,0 +1,19 @@
+{
+  "msg": "ok",
+  "data":[
+{
+ "ID":"1",
+ "name": "地产",
+ "Url":"/Category/List/1"
+},
+{ "ID":"2",
+ "name": "科技",
+ "Url":"/Category/List/2"},
+{ "ID":"3",
+ "name": "医药",
+ "Url":"/Category/List/3"},
+{ "ID":"4",
+ "name": "其他",
+ "Url":"/Category/List/4"}
+]
+}

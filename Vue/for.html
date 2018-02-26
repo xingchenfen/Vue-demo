@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>循环</title>
+		<style>
+			body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; } 
+body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53; } 
+h1, h2, h3, h4, h5, h6{ font-size:100%; } 
+address, cite, dfn, em, var { font-style:normal; } 
+code, kbd, pre, samp { font-family:couriernew, courier, monospace; } 
+small{ font-size:12px; } 
+ul, ol { list-style:none; } 
+a { text-decoration:none; } 
+a:hover { text-decoration:underline; } 
+sup { vertical-align:text-top; } 
+sub{ vertical-align:text-bottom; } 
+legend { color:#000; } 
+fieldset, img { border:0; } 
+button, input, select, textarea { font-size:100%; } 
+table { border-collapse:collapse; border-spacing:0; } 
+			.cc{
+				width:10%;
+				background:darkred;
+				opacity: 0.6;
+			}
+			ul{
+				width:100px;
+				height:100px;
+			
+			}
+			li{list-style: none;
+			    text-align: center;
+			 border-bottom:1px dashed #CCCCCC;
+			  }
+			
+		</style>
+	</head>
+	<body>
+		<div id="app">
+		   <div class="cc">	
+             <ul v-for="aa1 in aa">
+		   	     <li >{{aa1.name}}</li>
+		     </ul>
+		   </div>
+		  <!-- 打印出对象-->
+		   <ul>
+		   	 <li v-for="ss in bb">{{ss}}</li><!--//或者写成 <li v-for="(value, key, index) in bb"> {{ index+1}}. {{ key }} : {{ value }}</li>//去掉index也是可以的-->
+		   </ul>
+		   
+	 <ul>
+         <!--打印1-10的数字-->
+        <li v-for="n in 10">
+          {{n}}
+        </li>
+	</ul>	   
+		   
+		</div>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script>
+			new Vue({
+				el:"#app",
+				data:{
+					bb:{name:"陈星",age:26,height:'175cm',居住地:'深圳南山'},//对象传值也叫迭代对象
+					aa:[{ name: 'Runoob' },{ name: 'Google' },{ name: 'Taobao' }]//JSON格式传值
+				}
+			})
+			
+			
+		</script>
+	</body>
+</html>

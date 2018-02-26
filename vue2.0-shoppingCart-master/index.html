@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>v-model添加数据</title>
+		<script type="text/javascript" src="js/lib/vue.min.js"></script>
+		<script type="text/javascript" src="js/lib/vue-resource.min.js" ></script>
+		<style>
+			table {
+				border-color: red;
+				margin-left: 10%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="myCtr">
+			name:<input type="text" v-model="name" /> age:
+			<input type="number" v-model="age">
+			<button @click="al">点击</button>
+
+			<table cellpadding="0" cellspacing="0" border="1" width="80%">
+				<tr v-for='(item,index) in addressList'>
+					<td>{{item.name}}</td>
+					<td>{{item.age}}</td>
+					<td>{{index}}</td>
+				</tr>
+			</table>
+			
+		</div>
+		<script>
+			var vm = new Vue({
+				el: '#myCtr',
+				data: {
+					name: '',
+					age: '',
+					arr2: '',
+					addressList:[]
+					/*arr:[{"name":"陈贵华","age":25},
+					      {'name':'陈阳阳','age':10},
+					       {"name":'杨琼',"age":26},
+					       {"name":"陈云","age":26}
+					    ]*/
+				},
+			mounted: function() {
+				this.$nextTick(function() {
+					this.getAddressList();
+				});
+			},
+			
+			methods: {
+				getAddressList: function() {
+					var _this = this;
+					this.$http.get("data/index.json").then(function(response) {
+						var res = response.data;
+						console.log(res);
+						if(res.status == "0") {
+							_this.addressList = res.result;
+		
+						}
+					});
+				},
+			    al: function() {
+					alert(this.name + ';' + this.age);
+					arr2 = {
+						'name': this.name,
+						"age": this.age
+					};
+					this.addressList.push(this.arr2);
+				}
+		    }
+
+		})
+		</script>
+	</body>
+
+</html>

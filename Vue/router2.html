@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue路由嵌套,动画，参数传递</title>
+		<link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.css" rel="stylesheet">
+		<script type="text/javascript" src="js/vue.min.js" ></script>
+		<script type="text/javascript" src="js/vue-router.js" ></script>
+		 <style>
+		
+		 	table tr td{
+		 		text-align: center;
+		 	}
+		 	.a{/*-animate动画--*/
+		 		position:absolute;
+		 		width: 100%;
+		 	}
+		 </style>
+	</head>
+	<body>
+		<div id="itany" >
+		      <div>
+		      	<router-link to="/busline"> BusLine</router-link>
+		      	<router-link to="/news">News</router-link>
+		      </div>
+		      <div style="height:300px">
+		      	<hr />
+		      	<!--animate动画-->
+		      	<transition enter-active-class='animated bounceInLeft' leave-active-class='animated bounceOutLeft'>
+		      	   <router-view></router-view>
+		      	</transition>
+		      </div>
+		
+		</div>
+		<template id="bus">
+		   <div class="a">
+			<div>
+				<router-link to="/busline/xinlang">xinlang</router-link>
+				<router-link to="/busline/souhu?name=cx&cx=121">souhu</router-link><!--传参数-->
+			</div>
+		    <div >
+		     	<router-view></router-view>
+		     </div>
+		   </div>  
+		</template>
+			<template id="souhu">
+				<div>
+			     <table cellpadding="0" cellspacing="0" border="1px solid #cccccc"  width="500">
+			      <thead>
+			      	  <tr>
+			      	  	<td colspan="2"><h3>搜狐频道</h3>{{$route.query}}</td><!--取出参数-->
+			      	  	
+			      	  </tr>
+			      </thead>
+			      <tbody>
+			      	   <tr>
+			      	   	<td>内容</td>
+			      	   	<td>时间</td>
+			      	   </tr>
+			      	   <tr>
+			      	   	<td> liuxiongyu</td>
+			      	   	<td>2012002</td>
+			      	   </tr>
+			      	   <tr>
+			      	   	<td>yun shi tian jiang</td>
+			      	   	<td>2017.8.23</td>
+			      	   </tr>
+			      	   <tr>
+			      	   	<td>fjej skjfjsd dsf </td>
+			      	   	<td>2019.08.13</td>
+			      	   </tr>
+			      </tbody>
+			     </table>
+			    </div>  
+			</template>
+		<script>
+			var  Busline={
+				template:"#bus"
+			};
+			var News={
+				template:"<div class='a'><h2>this is news</h2> </div>"
+			};
+			var Xinlang={
+				template:"<h3>新浪新闻</h3>"
+			};
+			var Souhu={
+				template:"#souhu"
+			};
+			const Routes=[
+			       {path:'/busline',
+			       component:Busline,
+			       children:[
+                        {path:'xinlang',component:Xinlang},
+                        {path:'souhu',component:Souhu},
+                        {path:'*',redirect:'xinlang'}
+			       ]},
+			       {path:'/news',component:News},
+			       {path:"*",redirect:'/busline'}//默认加载'/busline'页面
+			];
+			var router=new VueRouter({
+				routes:Routes
+			});
+			new Vue({
+				el:"#itany",
+				router
+			})
+		</script>
+	</body>
+</html>

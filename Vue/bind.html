@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue绑定值得方法</title>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+	</head>
+
+	<body>
+
+		<div id="app">
+			<h3>
+			    <button @click="increment">+</button>
+			    Adjust the state
+			    <button @click="decrement">-</button>
+			  </h3>
+			<h2>This is the app state: <span class="num">{{ count }}</span></h2>
+			<hr>
+			<h4><child count="1"></child></h4>
+			<p>This is a child counter that is using a static integer as props</p>
+			<hr>
+			<h4><child :count="count"></child></h4>
+			<p>This is the same child counter and it is using the state as props</p>
+		</div>
+		<div id="itany">
+			<button type="button" @click="add">+</button> {{count}}
+			<button type="button" @click="jian">-</button>
+		</div>
+		<script>
+			//Vue.directive("自定义标签名",function(){})全局指令定义方法
+			Vue.component('child', {
+				props: {
+					count: {
+						type: Number,
+						required: true
+					}
+				},
+				template: `<div class="num">{{ count }}</div>`
+			})
+
+			new Vue({
+				el: '#app',
+				data() {
+					return {
+						count: 0
+					}
+				},
+				methods: {
+					increment() {
+						this.count++;
+					},
+					decrement() {
+						this.count--;
+					}
+				}
+			})
+
+			new Vue({
+				el: "#itany",
+				data: {
+					count: 1
+				},
+				methods: {
+					
+					add() {
+						return this.count++;
+					},
+					jian() {
+						return this.count--;
+					}
+				}
+
+			})
+		</script>
+
+	</body>
+
+</html>

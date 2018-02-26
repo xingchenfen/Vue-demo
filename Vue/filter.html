@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义过滤器</title>	
+		<script type="text/javascript" src="js/vue.min.js" ></script>
+
+		<style>
+			table>tr>td{
+				text-align: center;
+				border: 1px solid cornflowerblue;
+			}
+			
+			table{
+				border:1px solid darkblue;
+				margin-left: 80px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+		   输入搜索值: <input type="text" v-model="searchQuery">
+		   &nbsp;age<input type="number" v-model="shuzi" /><button type="button" @click="sort">年龄</button>
+		   <table cellpadding="0" cellspacing="0" width="400px">
+		   <thead>
+		   	  <tr>
+		   	  	<td v-for="col in columns">{{col | capitalize | sort}}</td>
+		   	  </tr>
+		   	</thead>
+		   	<tbody>
+		   	 <tr v-for="entry in fiterDate">
+		   	 	   <td v-for="col in columns">{{entry[col]}}</td>
+		   	 </tr>
+		   	</tbody>
+		   </table> 	
+		</div>
+		<script>
+		var vm=new Vue({
+				el:"#app",
+				data:{
+					searchQuery:'',
+					shuzi:"",
+					columns:['name','age'],
+					data:[
+						{name:'join',
+						age:23,
+						},
+						{
+							name:'back',
+							age:28,
+						},
+						{
+							name:"jack",
+							age:30,
+						},{
+							name:'cxx',
+							age:18,
+						},{
+							name:'',
+							age:30,
+						}
+					]
+				},
+				filters:{
+					capitalize:function(value){
+						return value.charAt(0).toUpperCase()+value.slice(1);
+					}
+					
+				},
+			    computed:{
+					fiterDate:function(){
+						var _this=this;
+						return this.data.filter(function(item){
+							return item.name.toLocaleLowerCase().indexOf(_this.searchQuery.toLowerCase())!==-1
+						})
+					}
+				},
+				methods:{
+					sort:function(){
+						//this.data.
+						var  array=[];
+						for(var i=0;i<this.data.length;i++){							
+							
+						}
+					
+						
+					}
+				}
+				
+			});
+
+		</script>
+	</body>
+</html>

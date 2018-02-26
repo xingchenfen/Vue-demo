@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script src="js/vue.min.js"></script>
+		<style>
+			.box {
+				width: 1000px;
+				margin: auto;
+				margin-top: 100px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box" id="app">
+			<h3>这里是<b>{{name}}</b>的购物车</h3>
+
+			<div>
+				<span>输入关键字</span>
+				<input type="text" v-model="key">
+			</div>
+
+			<table class="table table-hover table-striped">
+				<tr>
+					<th>商品编号</th>
+					<th>商品名称</th>
+					<th>商品单价</th>
+					<th>商品数量</th>
+					<th>小计金额</th>
+					<th>删除</th>
+				</tr>
+				<tr v-for="(b,index) in filterGoodses" class="warning">
+					<td>{{index}}</td>
+					<td>{{b.goodsName}}</td>
+					<td>{{b.price}}</td>
+					<td><button @click="add($parent.$index,$index)">-</button><input type="text" v-model="b.number"><button @click="jian($parent.$index,$index)">+</button></td>
+					<td>{{b.price*b.number}}</td>
+					<td><button class="btn" v-on:click="dele(index)">删除</button></td>
+				</tr>
+			</table>
+			<div>总价为<span>{{moneyall}}</span></div>
+		</div>
+	</body>
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data: {
+				money: "",
+				name: "鸣欣凤凰",
+				goodses: [{
+						id: 1,
+						goodsName: "JavaScript从入门的放弃",
+						price: 25.5,
+						number: 1
+					},
+					{
+						id: 2,
+						goodsName: "Java从入门的吐血",
+						price: 12,
+						number: 1
+					},
+					{
+						id: 3,
+						goodsName: "PHP是世界上最好语言",
+						price: 18,
+						number: 1
+					},
+					{
+						id: 4,
+						goodsName: "mysql从入门到删库",
+						price: 21,
+						number: 1
+					},
+					{
+						id: 5,
+						goodsName: "Html从入门到精通",
+						price: 9,
+						number: 1
+					}
+				],
+				key: "" //创建一个空的
+			},
+			methods: { //删除信息
+				dele: function(index) {
+					/*
+					 *confirm() 方法用于显示一个带有指定消息和 OK 及取消按钮的对话框。
+					 * 如果用户点击确定按钮，则 confirm() 返回 true。
+					 * 如果点击取消按钮，则 confirm() 返回 false。
+					 * 
+					 * 点击确定执行下一行代码           
+					 */
+					if(confirm("确定要删除吗？")) {
+						this.goodses.splice(index, 1);
+					}
+				},
+				add:function(parentID,ID){
+					   var self = this.items[parentID].listgoods[ID];
+			               if(self.number >99){
+			                   return false
+			               }
+			               self.number++;
+				},
+				jian:function(parentID,ID){
+					
+				}
+			},
+			computed: { //计算总价
+				moneyall: function() {
+					var allp = 0;
+					for(var i = 0; i < this.goodses.length; i++) {
+						allp = allp + this.goodses[i].price * this.goodses[i].number;
+					}
+					return allp;
+				},
+				filterGoodses: function() { // 过滤器
+					var key = this.key;
+					var goodses = this.goodses;
+					return goodses.filter(function(goodses, goodsName) {
+						return goodses.goodsName.toLowerCase().indexOf(key.toLowerCase()) != -1
+						/*
+						 *indexOf() 方法对大小写敏感！
+						 * 如果要检索的字符串值没有出现，则该方法返回 -1
+						 * 
+						 * toLowerCase() 方法用于把字符串转换为小写。
+						 * */
+
+					})
+				}
+
+			}
+		});
+	</script>
+
+</html>

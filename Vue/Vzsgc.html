@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue增删改查</title>
+		<script type="text/javascript" src="js/vue.min.js" ></script>
+		<style>
+			table{
+				margin-left:15%;
+				text-align: center;
+			}
+			
+			td{
+				padding:10px 1px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="content">
+			<fieldset>
+				<label>添加</label>
+				<input type="text" v-model="msg"/>
+				<button v-on:click="add">增加</button>
+			</fieldset>
+			<table cellpadding="0" cellspacing="0" border="1" width="70%">
+				<tr>
+					<td v-for="i in th">{{i}}</td>
+				</tr>
+				<tr v-for="(val,key) in tr">
+				    <td><input type="checkbox" v-model="checke" id=key></td>
+				    <td>{{key+1}}</td>
+				    <td>{{val}}</td>
+				    <td><button @click='del(key)'>删除</button></td>
+				</tr>
+				<tr >
+					<td colspan="2"><input type="checkbox" v-model="checked" @change="check" >全选</td>
+					<td colspan="2"><button>删除选中</button></td>
+				</tr>
+			</table>
+						
+		</div>
+		
+		<script>
+			var vm=new Vue({
+				el:'#content',
+				data:{
+					msg:'',
+					checke:"",
+					checked:'',
+					th:['选择','序号','内容','操作'],
+					tr:["cscacs","scacssc","as5446sas","vafdgaag1","范德萨发生"]
+				},
+				methods:{
+					del:function(g){
+						this.tr.splice(g,1);
+					},
+					add(){//可以，但是Hbuiler不认可
+						if(this.msg!=""){
+						this.tr.push(this.msg);}
+						this.msg=""
+					},
+					check(){
+					    //if(this.checked)=true;
+					    this.checked?this.checke=true:this.checke=false;
+					    
+					},
+					deletes(){
+						
+					}
+					
+				}
+				
+				
+				
+				
+				
+			});
+			
+			
+			
+		</script>
+	</body>
+</html>

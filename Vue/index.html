@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>vue基本语法</title>
+		<style>
+			.ss{color:palevioletred;font-style:italic;font-size:25px;}
+		</style>
+	</head>
+	<body>
+		<div class="AA">
+			<p>{{message}}</p>
+			<label for="aa"> 改变颜色</label><input type="checkbox" id="aa" v-model="clas">
+			<br />
+			<p v-bind:class="{'ss':clas}">我看万丈红尘，笑看风云起。</p>
+		
+		</div>
+		<div id="cx">
+			<div v-html="message"></div><br>
+			{{55+5}}<br />
+			{{ok ? "yes":"no"}}<br>
+			{{cc.split('').reverse().join('')}}<br />
+			<li v-bind:id="'list-'+id">陈贵华</li>
+			<p v-if="sss">1212</p>
+		</div>
+		<div id="vv">
+		 
+		  <form action="{{url}}" method="get">
+			<input type="text" v-model="message"name="userName"><br /><!--数据双向绑定-->
+			{{message}}
+			<br />
+			<input type="button" value="anniu" v-on:click="xx()" />
+			<input type="submit"value="login">
+		
+			</form>
+			<button v-on:click="fanzhuan()">翻转字符串</button>
+			<p>{{fanzhuan2}}</p><!--也是翻转字符-->	
+		</div>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script type="text/javascript">
+			new Vue({
+				 el: '.AA',
+                  data: {
+                  message: 'Hello Vue.js!',
+                  clas:false,
+                 
+                  }
+			});
+			new Vue({
+				el:"#cx",
+				data:{
+					message:"<h3 style='color:red'>wo 爱 小师妹</h3>",
+					 cc:'I Love You!',
+					ok:false,
+					id:0,
+					sss:true,//v-if="false"为隐藏其他的都为显示
+				}
+			})
+			new Vue({
+				el:"#vv",
+				data:{
+					message:"ghsadgj",
+					url:aa.html
+				},
+				methods:{//绑定方法
+					xx:function(){
+						alert(123);
+					},
+					fanzhuan:function(){
+						this.message=this.message.split('').reverse().join('');
+					}
+				},
+				//第二种翻转方法
+				computed:{//计算，算法
+					
+					fanzhuan2:function(){
+						return this.message.split('').reverse().join('');
+					}
+					
+				}
+			})
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue拖动div</title>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<style>
+			.div {
+				width: 100px;
+				height: 100px;
+				text-align: center;
+				line-height: 100px;
+				font: 20px;
+				background-color: aquamarine;
+				cursor: pointer;
+				position: absolute;
+			}
+			
+			
+			.section{
+				width:500px;
+				height:500px;
+				border:1px dashed aquamarine;
+				background-color: aquamarine;
+			}
+			.content{
+				width:400px;
+				height:400px;
+				background-color: #DB7093;
+			}
+			.content-cen{
+				width:300px;
+				height:300px;
+				background-color: blueviolet;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="app">
+			<h2>{{msg}}</h2>
+			<button @click="add('sty')">内联方法</button>
+			<button v-on:click="msg='chjs'">直接内联</button>
+
+			<!--	<button @click="moveBut($event)" id="btn">anniu </button>-->
+			<div v-on:mousedown="moveBut($event)" class="div">拖动</div>
+			<input v-on:keyup.13="aler" @click="comfire()"value='键盘事件'>
+			<!--键盘事件适用于在input的时候
+				v-on:click="ss()"<==>@click="ss"<==>v-on:click="ss"
+			-->
+		</div>
+		
+		<br />
+	<div id="Von">
+			<div class="section" @click.self="section()">   <!--.self只有点击div.section时才有效
+				                                                  .once是一次事件
+			                                                        -->
+				<div class="content" v-on:click="content()">
+					<div class="content-cen" @click.stop="contentCen()"></div>
+				</div>
+			</div>
+	</div>
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					msg: ""
+				},
+				methods: {
+					add:function(str) {
+						this.msg = str
+					},
+					moveBut:function(e) {
+						var  targetDom=e.target;//点击的目标
+						console.log(e);
+						//document.onmousemove = function(eve) {
+						document.onmousemove = function(eve){
+							var y = eve.y;
+							var x = eve.x;
+							targetDom.style.top = y + 'px';
+							targetDom.style.left = x + 'px';
+							document.onmouseup = function(){
+								document.onmousemove = function()  {}
+							};
+						}
+					},
+					aler(){
+						alert(123);
+						/*
+						 * 定义方法是一样的
+						 alert(){}<==>alert:function(){}<==>
+						 * */
+					},
+					comfire(){
+						alert("cxc");
+					}
+				}
+			});
+			var Von=new Vue({
+				el:"#Von",
+				data:{
+					
+				},
+				methods:{
+					section(){
+					console.log('section');
+					},
+					content(){
+						console.log('content');
+					},
+					contentCen(){
+						console.log('contentCon');
+					}
+					
+					
+					
+				}
+				
+			});
+		</script>
+	</body>
+
+</html>

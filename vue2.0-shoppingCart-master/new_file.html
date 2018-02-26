@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义过滤</title>
+		<script src="js/lib/vue.min.js"></script>
+	
+	</head>
+
+	<body>
+		<div id="app">
+			<!--输出的字符串中a的个数-->
+			<span>msg的值：{{msg}},其中a的个数：</span> {{msg | myfilter('a')}}
+			<br>
+			<!--输出的字符串中b的个数-->
+			<span>msg的值：{{msg}},其中b的个数：</span> {{msg | myfilter | myfilternumber}}
+
+		</div>
+	</body>
+	<script type="text/javascript">
+		Vue.filter("myfilter", function(value, arg) {
+			//返回一个对象或者json字符串，列出字符串中的字符以及字符的个数,不区分大小写
+			var obj = {};
+			var s = value.split('').sort().join("");
+			var reg = /(.)\1+/ig;
+			var str = s.replace(reg, "$1"); //字符串去重后的结果
+			var i = 0,
+				n,
+				a;
+			while(s.length > 0) {
+				a = str.charAt(i);
+				n = s.lastIndexOf(a) + 1;
+				obj[a] = n;
+				s = s.substring(n);
+				i++;
+			}
+			return arg ? obj[arg] : obj;
+		});
+		Vue.filter("myfilternumber", function(value) {
+			return value.w;
+		});
+		var app1 = new Vue({
+			el: "#app",
+			data: {
+				msg: "aatwetewtwta"
+
+			},
+			methods: {
+
+			}
+		});
+	</script>
+
+</html>

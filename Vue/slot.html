@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>单slot"占位符"</title>
+	</head>
+	<body>
+		<div id="itany">
+			<hello>
+				slot这句话还会看的见，单slot的作用，
+			</hello>
+			
+			
+		</div>
+		<template id="hello">
+			<div><!--这里要加div，是要把slot标签与ul标签包裹在一起-->
+				<slot on-click="ss()"></slot>
+                             <!--
+                             	作者：m17817095394@163.com
+                             	时间：2018-01-15
+                             	描述：slot的位置，决定 元素显示的位置。。
+                             	     slot渲染的是静态页面
+                             -->
+				<ul>
+					<li v-for="arr2 in arr">{{arr2}}</li>
+					
+				</ul>
+			</div>
+			
+		</template>
+		<script type="text/javascript" src="js/vue.min.js" ></script>
+		<script>
+			new Vue({
+				el:'#itany',
+				
+				components:{
+					hello:{
+						template:"#hello",
+					},
+					data:function(){
+					   return arr=["cyy","pxh","dp","cxx"];
+			      	},
+					methods:{
+						ss:function(){
+							alert(123);
+						}
+					}
+				}
+				
+				
+			})
+			
+			
+		</script>
+	</body>
+</html>
+
+

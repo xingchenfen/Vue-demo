@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title> Vue组件（模板）</title>
+		<script type="text/javascript" src="js/vue.min.js" ></script>
+         <style>
+         	table tr td{
+         		border: 1px solid mediumvioletred;
+         		text-align: center;
+         	}
+         </style>
+	</head>
+
+	<body>
+		
+		<div id="itany">
+			
+			<button type="button" @click="show='users'">table</button><button type="button" v-on:click="show='load'">load</button>
+	     	<component v-bind:is="show"></component>
+	     	<!--
+	     		component 确定位置      is指定显示的模板
+	     		不会对模板缓存，每次模板切换都是新的渲染
+	     	-->
+			
+		</div>
+
+		<template id="cxNO">
+
+			<table cellpadding="0" cellspacing="0" width="600px">
+				
+				<tr v-for="use in userList">
+					<td>{{use.name}}</td>
+					<td>{{use.age}}</td>
+					<td>{{use.sex}}</td>
+				</tr>
+			</table>
+
+		</template>
+		<template id="loading">
+			<h3>正在加载Load.....</h3>
+		</template>
+		<script type="text/javascript">
+			new Vue({
+				el:"#itany",
+				data:{
+				 //  falg:true,
+				   show:'load'//load为模板名称
+				},
+				components: {
+					users: {
+						template:"#cxNO",
+						data:function() {
+							return {
+								userList: [{
+										"name": "cx",
+										"age": 26,
+										"sex": "man"
+									},
+									{
+										"name": "pxh",
+										"age": 25,
+										"sex": "wuman"
+									},
+									{
+										"name": "dp",
+										"age": 25,
+										"sex": "wuman"
+									},
+									{
+										"name": "yq",
+										"age": 27,
+										"sex": "wuman"
+									},
+									{
+										"name": "cgh",
+										"age": 24,
+										"sex": "wuman"
+									},
+								]
+							}
+						}
+					},
+					load:{
+						template:"#loading",
+					}
+				}
+
+			})
+		</script>
+	</body>
+
+</html>

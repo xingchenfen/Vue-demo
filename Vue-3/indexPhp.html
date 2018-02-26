@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="app" class="inner">
+			<ul v-for="pep in peps">
+				<li>
+					<a href="{{pep.Url}}" rel="external nofollow">{{pep.age}}---{{pep.name}}</a>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script type="text/javascript" src="js/vue-resource.min.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					peps: [{name:"cx",age:"16"},{name:"cx1",age:"26"},{name:"cx2",age:"36"}],
+					jsonpUrl:'http://localhost:8085/www/3_phpVue/index1.php'
+				},
+				mounted: function() {
+					this.getJsonInfo()
+				},
+				methods: {
+					getJsonInfo: function() {
+						//不行，有问题
+					/*	this.$http.jsonp('http://localhost:8085/www/3_phpVue/index1.php').then(function(res) {
+								console.log(res);
+								alert(res)
+							}, function(res) {
+								console.log(res)
+								alert("error");
+							});*/
+							/* this.$http.jsonp(this.jsonpUrl).then(  
+						        function(res){  
+						          console.log(res);  
+						     },function(){alert("error")})*/
+							//可以                                                                                                                                                                        //这里设置是否超时的时间
+						this.$http.get("http://localhost:8085/www/3_phpVue/index1.php",{timeout:1}).then(function(res){  
+						        console.log(res);
+						        alert(res);
+						        peps=res;
+						    },function(tXMLHttpRequest, textStatus, errorThrown){
+						    	console.log(this.textStatus);
+						    	console.log(XMLHttpRequest);
+						        console.log(errorThrown);
+						    	  if(textStatus=='timeout'){//如果超时就执行
+								    	alert("chashi");
+								    }
+						    })
+						    //可以
+						/*this.$http.post("http://localhost:8085/www/3_phpVue/index1.php",{name:"abc"},{emulateJSON:true})
+						    .then(function (res) {  
+				                // 处理成功的结果  
+				                console.log(res);
+				                alert(res.body);  
+				            },function (res) {  
+				            // 处理失败的结果  
+				            alert("error");
+				            });*/
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

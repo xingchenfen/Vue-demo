@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue指令应用</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+	    <style>
+	    	section{
+	    		border: 1px dashed blueviolet;
+	    	}
+	    	
+	    </style>
+	</head>
+	<body>
+		<article class="container">
+			<p v-msg_class>{{msg}}</p>
+			<section class="row">
+			
+				<span v-msg_but="bool" @click="bool=!bool">{{title}}</span>
+				<button class="btn btn-default" >按钮</button>
+			</section>
+		</article>
+		<script src="js/jquery-1.10.2.min.js" ></script>
+		<script src="js/bootstrap.min.js" ></script>
+		<script src="js/vue.min.js" ></script>
+		<script>
+			Vue.directive('msg_class',function(dom){
+				dom.style.color='red';
+				dom.style.fontSize='18px';
+				dom.style.padding='10px 5px';
+				dom.style.border='1px solid red';
+				dom.style.backgroundColor="blue";
+			});
+			Vue.directive("msg_but",function(dom,binding){
+				//console.log(binding);g
+				dom.style.padding="12px 5px";
+				dom.style.color="#ffffff";
+				if(binding.value){
+					dom.style.backgroundColor="blueviolet";
+					dom.style.border='1px red solid';
+				}else{
+					dom.style.backgroundColor="blue";
+					dom.style.border="1px dashed yellow";
+				}
+			})
+			var vm=new Vue({
+			       el:"article",
+			       data:{
+			       	    bool:"",
+			         	msg:'cheng功',
+			         	title:"改变样式",
+			         	bool:true
+			         	
+			       }
+			 });
+		</script>
+		
+	</body>
+</html>

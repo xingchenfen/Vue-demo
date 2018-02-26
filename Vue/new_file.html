@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VUE交互 </title>
+    <meta charset="utf-8">
+    <script src="js/vue.min.js"></script>
+    <script src="js/vue-resource.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function(){
+            var vm = new Vue({
+                el:'#box',
+                data:{
+                    msg:'Hello World!',
+                },
+                methods:{
+                    get:function(){
+                        //发送get请求
+                        this.$http.get('http://localhost:8083/zzzz/index.php',{}).then(function(res){
+                            alert(res.body);    
+                        },function(){
+                            console.log('请求失败处理');
+                        });
+                    }
+                }
+            });
+        }
+        var vm = new Vue({
+  el:"#list",
+  data:{
+    gridData: '',
+  },
+  ready: function() {
+    this.$http.jsonp('http://***.com').then(function(res){
+      this.$set('gridData', res.data);
+    })
+  },
+})
+    </script>
+</head>
+<body> 
+    <div id="list">
+        <input type="button" @click="ready()" value="按钮">
+    </div>
+</body>
+</html>

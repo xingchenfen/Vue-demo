@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue组件</title>
+		
+		<style>
+			button{
+				background-color: royalblue;
+			}
+		</style>
+	</head>
+	<body>
+		<!--全局注册组件-->
+		<div id="app" is='my-frist'>
+			<!--<my-frist></my-frist> 两种写法-->
+		</div>
+		<script type="text/javascript" src="js/vue.min.js" ></script>
+		<script>
+			Vue.component('my-frist',{//component--组件
+				template:'<div>这就是Vue全局注册组件化</div>'
+			})//组件必须放在上面
+			
+			var  vm=new Vue({
+				el:'#app'
+			})
+			
+		</script>
+		
+		
+		<div id="AAp">
+			<my-jubu></my-jubu>
+		</div>
+		<!--
+        	作者：m17817095394@163.com
+        	时间：2018-01-09
+        	描述：局部注册组件
+  -->
+  <script>
+       /* var child={
+        	template:'<h4>这是局部注册组件</h4>'
+        }
+        var vn=new Vue({
+        	el:'#AAp',
+        	components:{
+        		'my-jubu':child
+        	}
+
+        });*/
+       var vn=new Vue({
+       	el:"#AAp",
+       	components:{
+       		'my-jubu':{
+       			template:'<h4>这也是局部组件，写法不一样</h4>'
+       		}
+       	}
+       	
+       });
+   </script>  
+   <div id="tab">
+	   <table width='100px' border="1px solid red" cellpadding="0" cellspacing="0">
+	  	<tr is='my-table'><!--自定义组件-->
+	   	
+	   	</tr>
+	   <!--	<tr>
+	   		<my-table></my-table>这样写会出现在table外面
+	   	</tr>-->
+	   	
+	   	
+	   </table>
+   </div>
+   <script>
+   	
+   	new Vue({
+   		el:'#tab',
+   		components:{
+   			'my-table':{
+   				template:'<td>cxccx<button>anniu</button></td>'
+   			}
+   		}
+   	})
+   	
+   </script>
+   
+   
+   <div id="functio">
+   	   <my-count></my-count>
+     	<my-count></my-count>
+   </div>
+   
+   <script>
+    var data={count:1}
+   	Vue.component("my-count",{
+   		template:"<span @click='count+=1'>{{count}}</span>",
+   		data:function(){
+   			//return data
+   			//
+   			return {count:1}
+   		}
+   	})
+   var ve=new Vue({
+   		el:'#functio',
+   	})
+   
+  
+   </script>
+	</body>
+</html>

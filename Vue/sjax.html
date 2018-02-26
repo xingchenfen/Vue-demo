@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="app" class="inner">
+			<ul v-for="pep in peps ">
+				<li>
+					<a href="{{pep.Url}}" rel="external nofollow">{{pep.ID}}---{{pep.name}}</a>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script type="text/javascript" src="js/vue-resource.min.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					peps: ''
+				},
+				mounted: function() {
+					this.getJsonInfo()
+				},
+				methods: {
+					getJsonInfo: function() {
+						this.$http.get('Category.json').then(function(response) {
+							//console.log(response.data.data)
+							//alert(response.data.msg);
+							var resdata = response.data.data
+							this.peps = resdata
+						}).catch(function(response) {
+							//console.log(response)
+							console.log("居然没有弹窗")
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

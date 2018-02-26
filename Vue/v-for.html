@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>v-for与v-if,v-show的应用</title>
+		<script  src="js/vue.min.js"></script>
+		<style type="text/css">
+			table{
+				width:100%;
+			}
+			table>tr>td{
+				text-align: center;
+				vertical-align: middle;
+			}
+			button{
+				margin-left:49%;
+			}
+		</style>
+	</head>
+	<body>
+		 <div id="table">
+		 	
+		 		centent：<input type="text" v-model="name1"><br />
+		 		     <button @click="addArr">add</button>
+		 
+		 	<table cellpadding="0" cellspacing="0" border="1">
+		 	      <tr >
+		 	      	<td v-for="i in title">{{i}}</td>
+		 	      	
+		 	      </tr>
+		 		  <tr v-for="(v,k) in arr">
+		 		  	<td><input type="checkbox" v-bind:checked="tf"></td>
+		 		  	<td>{{k+1}}</td>
+		 		  	<td>{{v}}</td>
+		 		
+		 		  	<td><button v-on:click="delete1(k)">delete</button></td>
+		 		  </tr>	
+		 		
+		 	</table>
+		   <button v-on:click="delAll"> delete</button><button @click="riset"> 清空</button>
+		</div>
+		<script>
+			var vm=new Vue({
+				el:"#table",
+				data:{
+					name1:"",	
+					tf:true,
+					title:["选项","id","name","操作"],
+					arr:["dfhgjd","hfdgsj","hdgdsk","gsdjgfjs"]
+				},
+				methods:{
+					delete1:function(k){
+						this.arr.splice(k,1);
+					},
+					addArr:function(){
+						this.arr.push(this.name1);
+					},
+					delAll:function(){
+						if(!tf){
+							this.arr.splice();
+						}
+					},
+					riset:function(){
+						this.arr.splice(0,arr.length);
+					}
+					
+				}
+				
+			});
+		</script>
+	</body>
+</html>

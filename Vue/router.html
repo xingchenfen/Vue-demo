@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue简单路由</title>
+		<script src="js/vue.min.js"></script>
+	    <script src="js/vue-router.js" ></script>
+	    <style>
+	    	img{
+	    		height: 200px;
+	    		width: 300px;
+	    		border: 1px solid royalblue;
+	    	}
+	    </style>
+	</head>
+	<body>
+		<div id="itany">
+			<div>
+				<router-link to="/bus">busLine</router-link><!--效果如同a标签写法不同，Vue的用法-->
+				<router-link to="/news">newS</router-link>
+			</div>
+			<div>
+				<router-view></router-view><!--规定路由组件的放置地方，页面一般只有一个-->
+			</div>
+			
+		</div>
+		<script>
+			//定义路由组件首字母大写
+			var BusLine={
+				template:"<img src='img/f_bg.jpg' alt='这是公交线路图' title='这是公交线路图'>"
+			};
+			var News={
+				template:"<h1>这是新闻页面</h1>"
+			};
+			//配置路由
+			//定义常量 const
+			const Routes=[
+			         { path:"/bus",component:BusLine},//路由路径path，路由组件component
+			         {path:"/news",component:News},
+			         {path:"/",redirect:"/bus"}//重新定向redirect。默认显示/bus页面
+			];
+			//创建路由实例
+			var router=new VueRouter({
+				routes:Routes,
+				linkActiveClass:"active",
+				model:"history",
+				base:"/Vue/router.html"
+			})
+			//把路由加进作用域
+			new Vue({
+				el:'#itany',
+				router//
+			})
+						
+		</script>	
+	</body>
+</html>

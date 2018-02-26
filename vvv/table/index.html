@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>表单操作</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="icon" href="images/jdd.ico" type="image/x-icon"> <!--在title里面加图标-->
+		<style>
+		
+			th:first-child{
+				width:8.33%;
+			}
+			th,td,h4{
+				text-align: center;
+			}
+			td>span{
+				float:left;
+				font-size:18px;
+			}
+		</style>
+	</head>
+	<body>
+		<article class="container" id="article">
+			<aside class="col-md-5 col-xs-12">
+				<div class="input-group">
+				     <input type="search" class="form-control" placeholder="输入关键字"/>
+				     <span class="input-group-addon">搜索</span>
+			    </div>
+			</aside>
+		<br />&nbsp;
+			<section class="row">
+				<table class="table table-bordered table-striped">
+					<tr>
+						<th><input type="checkbox" v-model="bool"></th>
+						<th v-for=" i in th" v-html=i></th>
+					</tr>
+					<tr v-for="(value,key) in msg">
+						<td><input type="checkbox"></td>
+						<td>{{key+1}}</td>
+						<td>{{value.name}}</td>
+						<td>{{value.age}}</td>
+						<td>{{value.content}}</td>
+						<td><button class="btn btn-default" @click="del(key)">删 &nbsp;除</button>
+							<button class="btn btn-danger" data-toggle="modal" data-target="#myRevise"  v-on:click="revise(key)">修 &nbsp;改</button>
+							<button class="btn btn-info" data-toggle="modal" data-target="#myLook" @click="look(key)">查&nbsp;看</button>
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6"><span>共有<i v-font_span>{{msg.length}}</i>条数据</span>
+							<button class="btn btn-primary"  data-toggle="modal" data-target="#myAdd">增 &nbsp;加</button></td>
+					</tr>
+				</table>
+			</section>
+			<aside class="row">
+				
+			</aside>
+			<!--模态框   添加-->
+			<div class="modal fade" id="myAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			    <div class="modal-dialog">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			                    &times;
+			                </button>
+			                <h4 class="modal-title center" id="myModalLabel">
+			                                   添加人员信息
+			                </h4>
+			            </div>
+			            <div class="modal-body">
+		                     <div class="form-group">
+							    <label class="sr-only" for="name">name</label>
+							    <input type="text" class="form-control" v-mode="name1" placeholder="请输入名称">
+							  </div> 
+							   <div class="form-group">
+							    <label class="sr-only" for="name">age</label>
+							    <input type="text" class="form-control" v-model="age" placeholder="请输入名称">
+							  </div>       
+							   <div class="form-group">
+							    <label class="sr-only" for="name">content</label>
+							    <input type="text" class="form-control" v-model="content" placeholder="请输入名称">
+							  </div>       
+			            </div>
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+			                </button>
+			                <button type="button" class="btn btn-primary" @click="add()"> 提交 </button>
+			            </div>
+			        </div><!-- /.modal-content -->
+			    </div><!-- /.modal -->
+			</div>
+			<!--模态框   查看-->
+			<div class="modal fade" id="myLook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			    <div class="modal-dialog">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			                    &times;
+			                </button>
+			                <h4 class="modal-title center" id="myModalLabel">
+			                                       查看人员信息
+			                </h4>
+			            </div>
+			            <div class="modal-body">
+		                    <table class="table-bordered table table-responsive">
+		                    	<tr v-for="(value,key) in publics">
+		                    		<td>{{key}}</td>
+		                    		<td>{{value}}</td>
+		                    	</tr>	
+		                    </table>     
+			            </div>
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">关闭
+			                </button>
+			               
+			            </div>
+			        </div><!-- /.modal-content -->
+			    </div><!-- /.modal -->
+			</div>
+				<!--模态框   修改-->
+			<div class="modal fade" id="myRevise" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			    <div class="modal-dialog">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			                    &times;
+			                </button>
+			                <h4 class="modal-title center" id="myModalLabel">
+			                                       修 改 人 员 信 息
+			                </h4>
+			            </div>
+			             
+			            <div class="modal-body form-horizontal"v-for="(value,key) in publics" > 
+			            <!--<div class="form-group">
+						    <label for="lastname" class="col-sm-2 control-label">姓</label>
+						    <div class="col-sm-10">
+						      <input type="text" class="form-control" id="lastname" placeholder="请输入姓">
+						    </div>
+						  </div>-->
+			            	 <div class="form-group" >
+						         <label class="col-sm-2 control-label" for="name">{{key}}</label>
+							     <div class="col-sm-10">
+							         <textarea type="text" class="form-control" v-model=key >{{value}}</textarea>
+							     </div>  
+							 </div> 
+			            </div>
+			            <div class="modal-footer">
+			            	
+			                   <button type="button" class="btn btn-danger" @click="revise(key)"> 修改</button>
+			                <button type="button" class="btn btn-default " data-dismiss="modal">关闭
+			                </button>
+			            </div>
+			        </div><!-- /.modal-content -->
+			    </div><!-- /.modal -->
+			</div>
+		</article>	
+		
+		<script src="../js/jquery-1.10.2.min.js" ></script>
+		<script src="../js/bootstrap.min.js" ></script>
+		<script src="../js/vue.min.js" ></script>
+		<script>
+			Vue.directive("font_span",function(dom){
+				dom.style.fontSize="20px";
+				dom.style.color="red";
+				dom.style.fontWeight="bold";
+			});
+			var vm=new Vue({
+				el:"#article",
+				data:{
+				    name1:"",
+				    age:"",
+				    content:"",
+				    arr:"",
+				    magess:{},
+					bool:false, 
+					th:["id" ,"name" ,"age " ,"content" ," handle"],
+					msg:[{"name":"cx","age":25,"content":"gd-sz-ns"},
+					     {"name":"yq","age":26,"content":"sh-pd"},
+					     {"name":"pxh","age":25,"content":"hu-yy-yy"},
+					     {"name":"dp","age":25,"content":"hn-yy-lc"},
+					     {"name":"wf","age":25,"content":"hb-sz"},
+					     {"name":"cyy","age":10,"content":"hn-yy-yx"},
+					     {"name":"ll","age":21,"content":"hn-yy"}
+					     ],
+					 publics:{"name":"陈小春","age":30,"content":"村上春树"}//仿去后台取数据
+				},
+				methods:{
+					del:function(index){
+					this.msg.splice(index,1);
+					},
+					add:function(){
+						/*this.$http.post("url",
+						                  {"name":this.name1,"age":this.age,"content":this.content},
+						                  {emulateJSON: true}).then(function(response){*/
+						/*	message={dd:[{"name":this.name1,"age":this.age,"content":this.content}]};
+						console.log(message);
+				        this.msg.push(this.message);*/
+						/* name1="";
+				         age="";
+				        content="";*/
+				      /* alert("添加成功");
+				        window.location.reload();
+						},
+						   function(response){
+						   	alert("ERROR");
+						   })
+						*/
+						//假数据
+					},
+					look:function(index){
+						var arr=this.msg[index];
+						console.log(arr.name);
+				        //adds
+					},
+					revise:function(index){
+						var arr=this.msg[index];
+						console.log(arr.name);//获得点击的数据。再传到后台取对应的数据
+					}
+				}
+		 });		
+/*Vue.http.post(url,postData).then(function(data){if(data.ok){}
+}) 
+Vue.http.get(
+      url,
+      {
+        params: params
+      },
+      {emulateJSON: true}
+    )
+    .then((res) => {
+      resolve(res);
+    })
+    .catch((res) => {
+      reject(res);
+    });
+  });
+第二种
+Vue.http(method:'POST',url:"",data:"",emulateJSON:true).then(function(data){},function(data){error信息})		
+			})
+			
+Vue.http.post(
+      url,
+      {
+        params
+      },
+      {emulateJSON: true}
+    )
+    .then((res) => {
+      resolve(res.body);
+    })
+    .catch((res) => {
+      reject(res.body);
+    });
+ 
+	
+var params = new Object();  //创建params对象
+var params.id = id;  //传递参数
+var url = url;  //url地址
+postRequest(url, params)
+.then((message) => {
+  //这里处理成功回调
+})
+.catch((message) => {
+  //这里处理失败回调
+});
+ this.$http.jsonp(this.jsonpUrl).then(  
+        function(res){  
+          console.log(res);  
+          this.$set('resData',res);  
+        }  
+	
+	* * * * */
+		</script>	
+	</body>
+</html>

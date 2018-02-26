@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue过滤器</title>
+	</head>
+	<body>
+		<div id="ss">
+			<input type="text"v-model="message"><br>
+			{{message|xx}}
+			
+			
+			
+			<!--<div v-if="ok"><!--或者--><template v-if="Math.random()>0.6">
+				<p> chenxing+chenguihua</p>
+				<h3>hao yao yuan de juli</h3>
+				<h1>shui wu ren jian</h1>
+			</template>
+			<b v-else>shen jia guo qian wan</b>
+	<!--Vue 的if,else嵌套使用-->	
+    <div v-if="type === 'A'">
+      A
+	</div>
+	<div v-else-if="type === 'B'">
+	  B
+	</div>
+	<div v-else-if="type === 'C'">
+	  C
+	</div>
+	<div v-else>
+	  Not A/B/C
+    </div>
+       <i v-show="hh">
+       	ai wo 中华
+       </i>
+       
+		</div>
+		
+		<script type="text/javascript" src="js/vue.min.js" ></script>
+		<script>
+			new Vue({
+				el:"#ss",
+				data:{
+					message:"",
+					ok:false,//v-if的用法
+					type:'f',//if else嵌套用
+					hh:1//v-show只有false与0是隐藏其他的都是显示
+				},
+			//过滤器的样式
+				filters:{
+					xx:function (value) {
+      if (!value) return 
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1);//首字母大写
+	
+					}
+				}
+			})
+			
+			
+		</script>
+	</body>
+</html>

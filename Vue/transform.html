@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue动画</title>
+		<script type="text/javascript" src="js/vue.min.js" ></script>
+		<style>
+		   .box{
+		   	width: 200px;
+		   	height:300px;
+		   	border: 1px solid indianred;
+		  background-color: #8A2BE2;
+		   	opacity: 1.0;
+		   }
+		   .cx-leave-active,.cx-enter-active{
+		   transition: all 3s ease-in-out;
+		   }
+		   .cx-enter-active{
+				width:200px;
+				height:300px;
+				opacity: 1.0;
+					border: 1px solid indianred;
+			}
+			.cx-leave-active{
+				width: 0px;
+				height:50px;
+				opacity: 0.3;
+					border: 1px solid indianred;
+			}
+			.cx-enter{
+				width:0px;
+				height:50px;
+				opacity: 0.3;
+					border: 1px solid indianred;
+			}
+		/*	.v-enter-active{} 是所有的transition动画都设置
+		    给transition加name属性就是指定专用的。如name=”cx“
+		 * 
+		 * */
+			
+		</style>
+		
+	</head>
+	<body>
+			<div id="itany">
+				<button type="button" @click="flag=!flag">anniu</button>
+			   <transition name="cx">
+			   	
+			   	<div class="box" v-show="flag">
+			   		cxcsxcsdcds
+			   	</div>
+			   	
+			   	
+			   </transition>
+			
+			</div>
+		<script>
+			
+			new Vue({
+				el:'#itany',
+				data:{
+					flag:true
+				},
+				
+			})
+			
+			
+			
+		</script>	
+	</body>
+</html>
